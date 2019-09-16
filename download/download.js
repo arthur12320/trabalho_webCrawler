@@ -24,7 +24,10 @@ const downloadHtml = function (link,buffer){
         $ = cheerio.load(body);
         $('img').each(function(a, b) {
             let imglink = $(this).attr('src')
-            if(!imglink.startsWith('http')){
+            if(imglink.startsWith('//')){
+                imglink = 'https:' + imglink;
+            }
+            else if(!imglink.startsWith('http')){
                 let firstPart = link.match(/^.*\//);
                 imglink = firstPart + imglink;
             }
